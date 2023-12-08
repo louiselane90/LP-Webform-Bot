@@ -1,0 +1,29 @@
+Sub uploadLoop()
+    
+    ThisWorkbook.Sheets("Resale Inventory").Activate
+    
+    i = 2
+    
+    'While Len(Range("A" & CStr(i)).Value) < 5000
+    
+    While i < 5000
+    
+        'If Cells(i,1).Value = "Complete" Then
+        
+        If Cells(i, 1).Value = "1" Then
+            Call chromAutov2(ByVal i)
+            'Marks Spreadsheet identifer as 'Complete'
+            Cells(i, 1).Value = "Complete"
+        'Else
+        '    i = 5000
+        End If
+            
+        
+
+              
+     i = i + 1
+    
+    Wend
+
+    
+End Sub
