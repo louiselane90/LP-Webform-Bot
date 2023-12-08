@@ -5,7 +5,7 @@ Sub Pause_for_2_seconds()
 
 End Sub
 
-Sub chromAuto()
+Sub chromAutov2(ByVal i)
 
 'accesses listperfectly website
     Dim obj As New WebDriver
@@ -23,21 +23,28 @@ Sub chromAuto()
 '    MsgBox "Wait Over"
 'End If
 
+
+
 'Completes each field on listing page
-    obj.FindElementByName("input_133").SendKeys (ThisWorkbook.Sheets("Sheet1").Range("A2").Value) 'Listing Title
-    obj.FindElementByName("input_505").SendKeys (ThisWorkbook.Sheets("Sheet1").Range("H2").Value) 'Short Description
-    obj.FindElementByName("input_206").SendKeys (ThisWorkbook.Sheets("Sheet1").Range("B2").Value) 'Brand/Maker/Label/Artist
-    obj.FindElementByName("input_209").SendKeys (ThisWorkbook.Sheets("Sheet1").Range("C2").Value) 'Color Shade
-    obj.FindElementByName("input_213").SendKeys (ThisWorkbook.Sheets("Sheet1").Range("D2").Value) 'Size or Fit
+    'MsgBox i
+    obj.FindElementByName("input_133").SendKeys (ThisWorkbook.Sheets("Resale Inventory").Range("H" & i).Value) 'Listing Title
+    'obj.FindElementByName("input_505").SendKeys (ThisWorkbook.Sheets("Resale Inventory").Range("AB" & i).Value) 'Short Description
+    obj.FindElementByName("input_206").SendKeys (ThisWorkbook.Sheets("Resale Inventory").Range("J" & i).Value) 'Brand/Maker/Label/Artist
+    obj.FindElementByName("input_209").SendKeys (ThisWorkbook.Sheets("Resale Inventory").Range("K" & i).Value) 'Color Shade
+    obj.FindElementByName("input_213").SendKeys (ThisWorkbook.Sheets("Resale Inventory").Range("L" & i).Value) 'Size or Fit
+    obj.FindElementByName("input_17").SendKeys (ThisWorkbook.Sheets("Resale Inventory").Range("M" & i).Value) 'Condition Notes
+    
     obj.FindElementById("collapsible_toggle_all").Click 'Clicks 'Open Sections' button to expand all sections
     Call Pause_for_2_seconds 'pauses for 2 seconds so the section can expand before moving on to filling the next textboxes
-    obj.FindElementByName("input_453").SendKeys (ThisWorkbook.Sheets("Sheet1").Range("E2").Value) 'Keywords or Tags
-    obj.FindElementByName("input_22").SendKeys (ThisWorkbook.Sheets("Sheet1").Range("F2").Value) 'Price
-    'not working, shows up blank when ran, but don't really need obj.FindElementByName("input_847").SendKeys (ThisWorkbook.Sheets("Sheet1").Range("I2").Value) 'COGS
-    obj.FindElementByName("input_1").SendKeys (ThisWorkbook.Sheets("Sheet1").Range("G2").Value) 'SKU
+    obj.FindElementByName("input_453").SendKeys (ThisWorkbook.Sheets("Resale Inventory").Range("N" & i).Value) 'Keywords or Tags
+    obj.FindElementByName("input_22").SendKeys (ThisWorkbook.Sheets("Resale Inventory").Range("I" & i).Value) 'Price
+    'not working, shows up blank when ran, but don't really need obj.FindElementByName("input_847").SendKeys (ThisWorkbook.Sheets("Resale Inventory").Range("G" & i).Value) 'COGS
+    obj.FindElementByName("input_1").SendKeys (ThisWorkbook.Sheets("Resale Inventory").Range("D" & i).Value) 'SKU
     obj.FindElementByName("input_851").SendKeys ("1") 'Quantity always set to 1
-    'add back in when finished - publishes listing to inventory obj.FindElementById("gform_submit_button_1").Click
+    obj.FindElementByName("input_726").SendKeys (ThisWorkbook.Sheets("Resale Inventory").Range("C" & i).Value) 'Bin #
+    obj.FindElementById("label_1_859_1").Click
     
-
+    'add back in when finished - publishes listing to inventory
+    obj.FindElementById("gform_submit_button_1").Click
     
 End Sub
