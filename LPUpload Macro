@@ -1,0 +1,43 @@
+Dim obj As New WebDriver
+Sub Pause_for_2_seconds()
+
+    Application.Wait (Now + TimeValue("00:00:02"))
+
+End Sub
+
+Sub chromAuto()
+
+'accesses listperfectly website
+    Dim obj As New WebDriver
+    obj.Start "chrome", ""
+    obj.Get "https://listperfectly.com/"
+    
+    obj.FindElementByClass("elementor-button-text").Click 'clicks login button on main page
+    obj.FindElementById("user_login").SendKeys ("email") 'enters username
+    obj.FindElementById("user_pass").SendKeys ("password") 'enters password
+    obj.FindElementByName("wp-submit").Click 'clicks submit to login
+    obj.Get "https://app.listperfectly.com/list-an-item/" 'opens form to list an item
+    
+'Pauses so I can log in, select New Listing and select the correct template (add these functions later)
+'    If Application.Wait(Now + TimeValue("00:00:10")) = True Then
+'    MsgBox "Wait Over"
+'End If
+
+'Completes each field on listing page
+    obj.FindElementByName("input_133").SendKeys (ThisWorkbook.Sheets("Sheet1").Range("A2").Value) 'Listing Title
+    obj.FindElementByName("input_505").SendKeys (ThisWorkbook.Sheets("Sheet1").Range("H2").Value) 'Short Description
+    obj.FindElementByName("input_206").SendKeys (ThisWorkbook.Sheets("Sheet1").Range("B2").Value) 'Brand/Maker/Label/Artist
+    obj.FindElementByName("input_209").SendKeys (ThisWorkbook.Sheets("Sheet1").Range("C2").Value) 'Color Shade
+    obj.FindElementByName("input_213").SendKeys (ThisWorkbook.Sheets("Sheet1").Range("D2").Value) 'Size or Fit
+    obj.FindElementById("collapsible_toggle_all").Click 'Clicks 'Open Sections' button to expand all sections
+    Call Pause_for_2_seconds 'pauses for 2 seconds so the section can expand before moving on to filling the next textboxes
+    obj.FindElementByName("input_453").SendKeys (ThisWorkbook.Sheets("Sheet1").Range("E2").Value) 'Keywords or Tags
+    obj.FindElementByName("input_22").SendKeys (ThisWorkbook.Sheets("Sheet1").Range("F2").Value) 'Price
+    'not working, shows up blank when ran, but don't really need obj.FindElementByName("input_847").SendKeys (ThisWorkbook.Sheets("Sheet1").Range("I2").Value) 'COGS
+    obj.FindElementByName("input_1").SendKeys (ThisWorkbook.Sheets("Sheet1").Range("G2").Value) 'SKU
+    obj.FindElementByName("input_851").SendKeys ("1") 'Quantity always set to 1
+    'add back in when finished - publishes listing to inventory obj.FindElementById("gform_submit_button_1").Click
+    
+
+    
+End Sub
